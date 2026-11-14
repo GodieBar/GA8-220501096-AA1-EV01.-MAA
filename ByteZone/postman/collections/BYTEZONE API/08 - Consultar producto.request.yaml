@@ -1,0 +1,14 @@
+$kind: http-request
+description: |-
+  
+
+  Respuesta HTTP esperada: 200
+url: http://127.0.0.1:3000/api/productos/1
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Código HTTP esperado: 200", () => pm.response.to.have.status(200));
+      pm.test("Es el producto creado", () => pm.expect(pm.response.json().producto.nombre).to.eql("Producto Postman"));
+    language: text/javascript
+order: 9000

@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  
+
+  Respuesta HTTP esperada: 200
+url: "{{baseUrl}}/api/auth/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "cliente@bytezone.com",
+      "password": "Cliente123*"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Código HTTP esperado: 200", () => pm.response.to.have.status(200));
+      pm.collectionVariables.set("tokenCliente", pm.response.json().token);
+    language: text/javascript
+order: 18000

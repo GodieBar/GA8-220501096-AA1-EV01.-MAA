@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  
+
+  Respuesta HTTP esperada: 401
+url: " http://127.0.0.1:3000/api/auth/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "admin@bytezone.com",
+      "password": "clave_equivocada"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Código HTTP esperado: 401", () => pm.response.to.have.status(401));
+      pm.test("Mensaje genérico", () => pm.expect(pm.response.json().error).to.eql("Credenciales inválidas"));
+    language: text/javascript
+order: 3000

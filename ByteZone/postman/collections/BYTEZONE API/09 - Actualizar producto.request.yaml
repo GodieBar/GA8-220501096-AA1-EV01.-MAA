@@ -1,0 +1,24 @@
+$kind: http-request
+description: |-
+  
+
+  Respuesta HTTP esperada: 200
+url: https:/api/productos/1
+method: PUT
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: |-
+    {
+      "precio": 175000,
+      "stock": 25
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Código HTTP esperado: 200", () => pm.response.to.have.status(200));
+      pm.test("Precio actualizado", () => pm.expect(pm.response.json().producto.precio).to.eql(175000));
+    language: text/javascript
+order: 10000

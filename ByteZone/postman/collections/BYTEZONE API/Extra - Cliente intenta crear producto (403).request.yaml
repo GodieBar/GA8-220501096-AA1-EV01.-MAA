@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  
+
+  Respuesta HTTP esperada: 403
+url: "{{baseUrl}}/api/productos"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{tokenCliente}}
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Producto Postman",
+      "descripcion": "Creado desde Postman",
+      "precio": 150000,
+      "stock": 10,
+      "categoria_id": 6,
+      "marca_id": 13,
+      "destacado": false
+    }
+scripts:
+  - type: afterResponse
+    code: 'pm.test("Código HTTP esperado: 403", () => pm.response.to.have.status(403));'
+    language: text/javascript
+order: 19000

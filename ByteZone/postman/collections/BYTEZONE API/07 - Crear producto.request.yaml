@@ -1,0 +1,29 @@
+$kind: http-request
+description: |-
+  Guarda el id en {{productoId}}. categoria_id 6 = Almacenamiento, marca_id 13 = Logitech (según los datos iniciales; consulta /api/categorias y /api/marcas).
+
+  Respuesta HTTP esperada: 201
+url: http://127.0.0.1:3000/api/productos
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Producto Postman",
+      "descripcion": "Creado desde Postman",
+      "precio": 150000,
+      "stock": 10,
+      "categoria_id": 6,
+      "marca_id": 13,
+      "destacado": false
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Código HTTP esperado: 201", () => pm.response.to.have.status(201));
+      pm.collectionVariables.set("productoId", pm.response.json().producto.id);
+    language: text/javascript
+order: 8000

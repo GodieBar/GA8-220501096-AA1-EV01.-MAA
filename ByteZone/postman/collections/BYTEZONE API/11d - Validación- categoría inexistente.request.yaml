@@ -1,0 +1,28 @@
+$kind: http-request
+name: "11d - Validación: categoría inexistente"
+description: |-
+  
+
+  Respuesta HTTP esperada: 400
+url: "{{baseUrl}}/api/productos"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Producto Postman",
+      "descripcion": "Creado desde Postman",
+      "precio": 150000,
+      "stock": 10,
+      "categoria_id": 999,
+      "marca_id": 13,
+      "destacado": false
+    }
+scripts:
+  - type: afterResponse
+    code: 'pm.test("Código HTTP esperado: 400", () => pm.response.to.have.status(400));'
+    language: text/javascript
+order: 16000

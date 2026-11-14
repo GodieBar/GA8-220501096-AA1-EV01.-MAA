@@ -1,0 +1,14 @@
+$kind: http-request
+description: |-
+  Comprueba que el servidor y la base de datos están activos.
+
+  Respuesta HTTP esperada: 200
+url: http://127.0.0.1:3000/health
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Código HTTP esperado: 200", () => pm.response.to.have.status(200));
+      pm.test("La base de datos está conectada", () => pm.expect(pm.response.json().baseDeDatos).to.eql("conectada"));
+    language: text/javascript
+order: 1000

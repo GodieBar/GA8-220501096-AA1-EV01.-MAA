@@ -1,0 +1,14 @@
+$kind: http-request
+description: |-
+  
+
+  Respuesta HTTP esperada: 401
+url: http://127.0.0.1:3000api/fichas
+method: GET
+headers:
+  Authorization: "{{bearer_token_10xq}}"
+scripts:
+  - type: afterResponse
+    code: 'pm.test("Código HTTP esperado: 401", () => pm.response.to.have.status(401));'
+    language: text/javascript
+order: 6000

@@ -1,0 +1,22 @@
+$kind: collection
+description: Colección de pruebas de la API BYTEZONE (SENA GA8-220501096-AA1-EV01). Ejecuta las peticiones EN ORDEN. Requiere el backend en http://127.0.0.1:3000.
+variables:
+  - key: baseUrl
+    value: http://127.0.0.1:3000
+    disabled: false
+    secret: false
+  - key: token
+    value: ""
+    disabled: false
+    secret: false
+  - key: tokenCliente
+    value: ""
+    disabled: false
+    secret: false
+  - key: productoId
+    value: ""
+    disabled: false
+    secret: false
+  - key: bearer_token_10xq
+    secret: true
+    disabled: false

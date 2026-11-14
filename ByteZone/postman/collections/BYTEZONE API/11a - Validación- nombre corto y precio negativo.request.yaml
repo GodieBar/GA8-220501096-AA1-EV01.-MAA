@@ -1,0 +1,28 @@
+$kind: http-request
+name: "11a - Validación: nombre corto y precio negativo"
+description: |-
+  
+
+  Respuesta HTTP esperada: 400
+url: "{{baseUrl}}/api/productos"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "a",
+      "precio": -10,
+      "stock": 5,
+      "categoria_id": 1,
+      "marca_id": 1
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Código HTTP esperado: 400", () => pm.response.to.have.status(400));
+      pm.test("Incluye detalles", () => pm.expect(pm.response.json().detalles).to.be.an("array"));
+    language: text/javascript
+order: 13000
